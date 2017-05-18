@@ -1,0 +1,23 @@
+{
+	"name": "pcz/groupie-nette-component",
+	"description": "UI component for Nette framework for aggregating flat entity collections.",
+	"license": "proprietary",
+	"keyword": [],
+	"authors": [
+		{
+			"name": "petrofcz",
+			"email": "petrof91@gmail.com"
+		}
+	],
+    "autoload": {
+        "psr-0": {
+            "Pcz\\": "src/Pcz/"
+        },
+        "classmap": ["src/"]
+	},
+	"require": {
+	  	"pcz/groupie": "^0.1"
+	},
+	"require-dev": {
+	}
+}
