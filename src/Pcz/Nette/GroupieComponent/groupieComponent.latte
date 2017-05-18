@@ -1,0 +1,36 @@
+<table{block tableTag} class="table"{/block}>
+	{var $stack = $groups;}
+	<thead>
+		<tr n:block="headerRow"{block headerRowTag} {/block}>
+			<th n:block="headerRowIndent" colspan="{$levelCount}"></th>
+			{for $i = 0; $i < $columnCount; $i++}
+				<th n:block="columnHeader">{$columnDefinitions[$i]->getCaption()}</th>
+			{/for}
+			{block headerRowExtras}{/block}
+		</tr>
+	</thead>
+	<tbody>
+		{while count($stack)}
+			{var $group = array_shift($stack)}
+			{var $level = $group->getLevelIndex()}
+			<tr n:block="row"{block rowTag} style="background: {$rowColors[$level]|noescape};"{/block}>
+				{var $columnDatas = $group->getColumnDatas()}
+				<td n:block="rowIndent" n:inner-block="rowIndentContent" colspan="{$level}" n:if="$level > 0"></td>
+				<td n:block="rowCaption" n:inner-block="rowCaptionContent" colspan="{($levelCount - $level)}">
+					{(string)$group->getGroupData()}
+				</td>
+				{for $i = 0; $i < $columnCount; $i++}
+					{if $columnDatas[$i] === null}
+						<td n:block="emptyCell"></td>
+					{else}
+						<td n:block="cell">{(string)$columnDatas[$i]}</td>
+					{/if}
+				{/for}
+				{block rowExtras}{/block}
+			</tr>
+			{if ($children = $group->getChildren()) != null}
+				{var $stack = array_merge($children, $stack)}
+			{/if}
+		{/while}
+	</tbody>
+</table>
