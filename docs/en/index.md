@@ -9,4 +9,19 @@ It shows aggreaged data from flat entity collections (see the example below)
 ... a bit of magic and voila!:
 
 ![component preview](./../component.png)
-  
+
+it's possible to customize the template by extending it, see the following example:
+
+```twig
+{extends groupieComponent.latte}
+{block cell}
+	<td><small>{(string)$columnDatas[$i]}</small></td>
+{/block}
+{block rowTag}style="background: red;"{/block}
+{block headerRowExtras}
+	<th>Test</th>
+{/block}
+{block rowExtras}
+	<th>{$group->getUid()}</th>
+{/block}
+```
